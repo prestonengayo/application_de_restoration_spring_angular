@@ -1,0 +1,66 @@
+<div class="container mx-auto p-4 bg-white shadow rounded-lg">
+    <h2 class="text-2xl font-semibold mb-4">Gestion des éléments de menu</h2>
+    <button (click)="openMenuModal()" class="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl font-medium rounded-lg text-sm px-5 py-2.5">Ajouter un élément</button>
+  
+    <div class="mt-6 overflow-x-auto">
+      <table class="min-w-full bg-white border rounded-lg">
+        <thead>
+          <tr>
+            <th class="px-4 py-2 border">Nom</th>
+            <th class="px-4 py-2 border">Prix</th>
+            <th class="px-4 py-2 border">Description</th>
+            <th class="px-4 py-2 border">Image</th>
+            <th class="px-4 py-2 border">Catégorie</th>
+            <th class="px-4 py-2 border">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of menuItems">
+            <td class="px-4 py-2 border">{{ item.name }}</td>
+            <td class="px-4 py-2 border">{{ item.price }}</td>
+            <td class="px-4 py-2 border">{{ item.description }}</td>
+            <td class="px-4 py-2 border">
+              <img [src]="'http://localhost:8090' + item.imageUrl" alt="Image de {{ item.name }}" class="h-12 w-12 object-cover">
+            </td>
+            <td class="px-4 py-2 border">{{ item.categoryName }}</td>
+            <td class="px-4 py-2 border">
+              <button (click)="openMenuModal(item)" class="text-blue-600 hover:text-blue-800">Modifier</button>
+              <button (click)="deleteMenuItem(item.id)" class="text-red-600 hover:text-red-800 ml-4">Supprimer</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <!-- Modal pour ajouter/modifier un élément -->
+    <div *ngIf="isModalOpen" class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-50">
+      <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+        <h1 class="text-2xl font-semibold mb-4">{{ selectedItem ? 'Modifier l\'élément' : 'Ajouter un élément' }}</h1>
+        <form [formGroup]="menuForm" (ngSubmit)="onSubmitMenu()">
+          <input formControlName="name" placeholder="Nom" class="w-full p-2 mb-4 border border-gray-300 rounded-lg" />
+          <input formControlName="price" placeholder="Prix" class="w-full p-2 mb-4 border border-gray-300 rounded-lg" />
+          <input formControlName="description" placeholder="Description" class="w-full p-2 mb-4 border border-gray-300 rounded-lg" />
+          <!-- Input pour l'image -->
+          <input 
+            class="mb-4 block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" 
+            id="file_input" 
+            type="file"
+            (change)="onFileSelected($event)"
+          />
+
+          <!-- Liste déroulante des catégories -->
+          <select formControlName="categoryName" class="w-full p-2 mb-4 border border-gray-300 rounded-lg">
+            <option *ngFor="let category of categories" [value]="category.name" [selected]="category.name === menuForm.get('categoryName')?.value">
+              {{ category.name }}
+            </option>
+          </select>
+  
+          <div class="flex justify-end space-x-2">
+            <button type="button" class="px-4 py-2 bg-gray-300 text-gray-800 rounded-lg" (click)="closeMenuModal()">Annuler</button>
+            <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">{{ selectedItem ? 'Mettre à jour' : 'Ajouter' }}</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,24 @@
+<header class="flex sticky top-0 z-50 items-center justify-end bg-white p-3 border-b border-gray-200">
+    <div class="relative flex items-center space-x-4">
+        <div class="cursor-pointer flex items-center" (click)="toggleDropdown()">
+            <span class="ml-4 cursor-pointer">{{ currentUser?.lastName }} {{ currentUser?.firstName }}</span>
+            <img 
+            [src]="currentUser?.photoUrl && currentUser.photoUrl.length > 0 
+            ? 'http://localhost:8090' + (currentUser.photoUrl.startsWith('/') ? '' : '/') + currentUser.photoUrl 
+            : 'img/user.png'"
+
+            class="ml-2 rounded-full w-10 h-10 cursor-pointer"
+          />
+          
+        </div>
+        
+        <!-- Dropdown menu -->
+         @if(dropdownOpen){
+            <div class="absolute right-0 mt-36 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
+                <a routerLink="/dashboard/profile" (click)="toggleDropdown()"  class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Profile</a>
+                <a (click)="logout()" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">Deconnexion</a>
+            </div>
+         }
+        
+    </div>
+</header>

@@ -1,0 +1,98 @@
+<div class="container">
+<h2>Panier</h2>
+
+<!-- Noms des colonnes avec un système de grille -->
+<div class="grid grid-cols-4 gap-4 font-semibold py-2 border-b">
+  <div>Article</div>
+  <div class="text-right">Prix Unitaire</div>
+  <div class="text-right">Quantité</div>
+  <div class="text-right">Total</div>
+</div>
+
+<div *ngIf="cartItems.length > 0; else emptyCart">
+  <!-- Boucle pour chaque élément du panier avec grille -->
+  <div *ngFor="let cartItem of cartItems" class="grid grid-cols-4 gap-4 py-4 border-b">
+    <!-- Image et détails de l'article -->
+    <div class="flex items-center space-x-4">
+      <img *ngIf="cartItem.item.imageUrl" [src]="'http://localhost:8090' + cartItem.item.imageUrl" alt="Image de {{ cartItem.item.name }}" class="w-16 h-16 object-cover rounded-md">
+      <div>
+        <h3 class="text-lg font-semibold">{{ cartItem.item.name }}</h3>
+        <p class="text-gray-500 text-sm">{{ cartItem.item.description }}</p>
+      </div>
+    </div>
+
+    <!-- Prix unitaire à droite -->
+    <div class="text-right">
+      <p class="text-gray-700">{{ cartItem.item.price }} €</p>
+    </div>
+
+    <!-- Quantité modifiable -->
+    <div class="text-right">
+      <label for="quantity-{{ cartItem.item.id }}" class="sr-only">Quantité</label>
+      <input id="quantity-{{ cartItem.item.id }}" type="number" [(ngModel)]="cartItem.quantity" min="1" class="w-16 text-center border rounded-md" />
+    </div>
+
+    <!-- Prix total par article -->
+    <div class="text-right">
+      <p class="text-gray-900 font-semibold">{{ cartItem.quantity * cartItem.item.price }} €</p>
+    </div>
+  </div>
+
+  <!-- Section pour la sélection de l'adresse de livraison -->
+  <div class="mt-6">
+    <h3 class="text-lg font-semibold">Adresse de livraison</h3>
+
+    <!-- Si aucune adresse n'est enregistrée -->
+    <div *ngIf="addresses.length === 0" class="text-gray-500">
+      Aucune adresse enregistrée.
+    </div>
+
+    <!-- Si des adresses sont disponibles -->
+    <div *ngIf="addresses.length > 0">
+      <label for="delivery-address">Choisissez une adresse :</label>
+      <select id="delivery-address" [(ngModel)]="selectedAddressId" class="mt-2 w-full border rounded-md p-2">
+        <option *ngFor="let address of addresses" [value]="address.id">
+          {{ address.street }}, {{ address.city }}, {{ address.postalCode }}, {{ address.country }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Bouton pour ajouter une nouvelle adresse -->
+    <div class="mt-4">
+      <button (click)="openAddressModal()" class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">Ajouter une nouvelle adresse</button>
+    </div>
+  </div>
+
+  <!-- Prix total du panier -->
+  <div class="flex justify-end mt-6 text-lg">
+    <p class="font-semibold">Total du panier : {{ getTotalPrice() }} €</p>
+  </div>
+
+  <!-- Bouton pour valider -->
+  <div class="flex justify-end mt-4">
+    <button (click)="validateCart()" class="px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700">Valider la commande</button>
+  </div>
+</div>
+<div *ngIf="isAddressModalOpen" class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-50">
+  <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+    <h1 class="text-2xl font-semibold mb-4">Ajouter une adresse</h1>
+    <form [formGroup]="addressForm" (ngSubmit)="onSubmitAddress()">
+      <input formControlName="street" placeholder="Rue" class="w-full p-2 mb-4 border border-gray-300 rounded-lg" />
+      <input formControlName="postalCode" placeholder="Code postal" class="w-full p-2 mb-4 border border-gray-300 rounded-lg" />
+      <input formControlName="city" placeholder="Ville" class="w-full p-2 mb-4 border border-gray-300 rounded-lg" />
+      <input formControlName="country" placeholder="Pays" class="w-full p-2 mb-4 border border-gray-300 rounded-lg" />
+      <div class="flex justify-end space-x-2">
+        <button type="button" class="px-4 py-2 bg-gray-300 text-gray-800 rounded-lg" (click)="closeAddressModal()">Annuler</button>
+        <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Ajouter</button>
+      </div>
+    </form>
+  </div>
+</div>
+<ng-template #emptyCart>
+  <p>Votre panier est vide.</p>
+</ng-template>
+
+<div class="home-buttons">
+  <button routerLink="/home" class="btn btn-primary">Retour Menu</button>
+</div>
+</div>

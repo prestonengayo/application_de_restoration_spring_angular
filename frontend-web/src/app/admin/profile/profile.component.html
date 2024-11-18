@@ -1,0 +1,99 @@
+<div class="container mx-auto mt-4 p-4 bg-white shadow rounded-lg flex flex-col md:flex-row space-y-6 md:space-y-0 md:space-x-6">
+  <!-- Colonne gauche : Formulaire de mise à jour des informations utilisateur -->
+  <div class="w-full md:w-1/4">
+    <h2 class="text-2xl font-semibold mb-4">Profil</h2>
+    <form [formGroup]="profileForm" (ngSubmit)="updateProfile()">
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700">Nom</label>
+        <input
+          formControlName="firstName"
+          type="text"
+          class="mt-1 p-2 border border-gray-300 rounded-lg w-full"
+          placeholder="Entrez votre nom"
+        />
+      </div>
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700">Prénom</label>
+        <input
+          formControlName="lastName"
+          type="text"
+          class="mt-1 p-2 border border-gray-300 rounded-lg w-full"
+          placeholder="Entrez votre prénom"
+        />
+      </div>
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700" for="file_input">Photo de profil</label>
+        <input 
+        class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" 
+        id="file_input" 
+        type="file"
+        (change)="onFileSelected($event)"
+        />
+      </div>
+      
+      <button type="submit" [disabled]="!profileForm.valid" class="text-white bg-gradient-to-br mt-4 from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
+        Mettre à jour le profil
+      </button>
+    </form>
+  </div>
+
+  <!-- Colonne droite : Liste des adresses de l'utilisateur -->
+  <div class="w-full md:w-3/4">
+    <h3 class="text-xl font-semibold mb-4">Adresses</h3>
+    <div *ngIf="addresses.length === 0" class="text-gray-500 mb-4">Aucune adresse trouvée</div>
+    <div *ngIf="addresses.length > 0" class="overflow-x-auto">
+      <table class="min-w-full bg-white border rounded-lg">
+        <thead>
+          <tr>
+            <th class="px-4 py-2 border">Rue</th>
+            <th class="px-4 py-2 border">Ville</th>
+            <th class="px-4 py-2 border">Code Postal</th>
+            <th class="px-4 py-2 border">Pays</th>
+            <th class="px-4 py-2 border">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let address of addresses">
+            <td class="px-4 py-2 border">{{ address.street }}</td>
+            <td class="px-4 py-2 border">{{ address.city }}</td>
+            <td class="px-4 py-2 border">{{ address.postalCode }}</td>
+            <td class="px-4 py-2 border">{{ address.country }}</td>
+            <td class="px-4 py-2 border text-center">
+              <button (click)="openAddressModal(address)" class="text-blue-600 hover:text-blue-800 mr-2" title="Modifier l'adresse">
+                <svg class="w-6 h-6 text-blue-600 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
+                </svg>
+              </button>
+              <button (click)="deleteAddress(address.id)" class="text-red-600 hover:text-red-800" title="Supprimer l'adresse">
+                <svg class="w-6 h-6 text-red-600 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
+                </svg>                               
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
+    <button (click)="openAddressModal()" type="button" class="text-white bg-gradient-to-br mt-4 from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
+      Ajouter une adresse
+    </button>
+  </div>
+</div>
+
+<!-- Modal d'ajout/modification d'adresse -->
+<div *ngIf="isAddressModalOpen" class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-50">
+  <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+    <h1 class="text-2xl font-semibold mb-4">{{ addressToEdit ? 'Modifier l\'adresse' : 'Ajouter une adresse' }}</h1>
+    <form [formGroup]="addressForm" (ngSubmit)="onSubmitAddress()">
+      <input formControlName="street" placeholder="Rue" class="w-full p-2 mb-4 border border-gray-300 rounded-lg" />
+      <input formControlName="postalCode" placeholder="Code postal" class="w-full p-2 mb-4 border border-gray-300 rounded-lg" />
+      <input formControlName="city" placeholder="Ville" class="w-full p-2 mb-4 border border-gray-300 rounded-lg" />
+      <input formControlName="country" placeholder="Pays" class="w-full p-2 mb-4 border border-gray-300 rounded-lg" />
+      <div class="flex justify-end space-x-2">
+        <button type="button" class="px-4 py-2 bg-gray-300 text-gray-800 rounded-lg" (click)="closeAddressModal()">Annuler</button>
+        <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">{{ addressToEdit ? 'Mettre à jour' : 'Ajouter' }}</button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,86 @@
+/* Styles globaux */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+  }
+  
+  /* Conteneur principal */
+  div {
+    max-width: 600px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Titres */
+  h1, h2 {
+    color: #333;
+    margin-bottom: 15px;
+  }
+  
+  /* Formulaires */
+  form {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+  
+  /* Champs de formulaire */
+  input {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  /* Boutons */
+  button {
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Liste d'adresses */
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  li {
+    background: #f9f9f9;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  /* Erreurs */
+  .error {
+    color: red;
+    margin-top: 10px;
+  }
+  
+  /* Bouton de retour */
+  button.go-home {
+    background-color: #28a745;
+  }
+  
+  button.go-home:hover {
+    background-color: #218838;
+  }
+  

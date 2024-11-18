@@ -1,0 +1,67 @@
+/* Styles globaux */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+}
+
+/* Conteneur principal de la page de connexion */
+section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f4f4f9;
+}
+
+/* Styles pour le bouton "Voir le menu sans se connecter" */
+.auth-buttons {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.auth-buttons .btn-profile {
+    background-color: #1d72b8;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.auth-buttons .btn-profile:hover {
+    background-color: #155a8a;
+}
+
+/* Styles du formulaire de connexion */
+form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+button[type="submit"] {
+    background-color: #1d72b8;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #155a8a;
+}

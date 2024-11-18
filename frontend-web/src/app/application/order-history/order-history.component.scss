@@ -1,0 +1,149 @@
+/* Style global */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Conteneur principal */
+.main-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* Titre principal */
+h2 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Table de l'historique des commandes */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #f8f8f8;
+    font-weight: bold;
+    color: #333;
+}
+
+td {
+    font-size: 0.95rem;
+}
+
+tbody tr:hover {
+    background-color: #f1f5f9;
+}
+
+/* Boutons */
+button {
+    background-color: #1d72b8;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #155a8a;
+}
+
+/* Détails de commande */
+.bg-gray-50 {
+    background-color: #f8fafc;
+}
+
+ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+ul li {
+    padding: 10px 0;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+ul li:last-child {
+    border-bottom: none;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-sm {
+    font-size: 0.875rem;
+}
+
+.text-xs {
+    font-size: 0.75rem;
+    color: #6b7280;
+}
+
+.font-semibold {
+    font-weight: 600;
+}
+
+/* Images des articles */
+img {
+    border-radius: 8px;
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+}
+
+/* Bouton Retourner au menu */
+.btn-profile {
+    background-color: #ff5722;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+    display: block;
+    text-align: center;
+    width: 100%;
+}
+
+.btn-profile:hover {
+    background-color: #e64a19;
+}
+
+/* Aucune commande trouvée */
+p {
+    font-size: 1.1rem;
+    color: #555;
+    text-align: center;
+    margin-top: 40px;
+}
+
+/* Actions */
+.actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}

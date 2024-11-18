@@ -1,0 +1,210 @@
+/* Style global */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Conteneur principal */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Grid des articles dans le panier */
+.grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 20px;
+    align-items: center;
+}
+
+.border-b {
+    border-bottom: 1px solid #ddd;
+}
+
+.font-semibold {
+    font-weight: 600;
+}
+
+.text-right {
+    text-align: right;
+}
+
+/* Détails des articles */
+img {
+    border-radius: 8px;
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+}
+
+.text-gray-500 {
+    color: #6b7280;
+}
+
+.text-lg {
+    font-size: 1.125rem;
+}
+
+/* Inputs pour la quantité */
+input[type="number"] {
+    width: 60px;
+    padding: 6px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    text-align: center;
+}
+
+/* Sélection d'adresse */
+select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+/* Boutons */
+button {
+    background-color: #1d72b8;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #155a8a;
+}
+
+.mt-6 {
+    margin-top: 1.5rem;
+}
+
+.bg-blue-600 {
+    background-color: #1d72b8;
+}
+
+.bg-blue-600:hover {
+    background-color: #155a8a;
+}
+
+.text-white {
+    color: white;
+}
+
+.rounded-md {
+    border-radius: 8px;
+}
+
+/* Total du panier */
+.total {
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-align: right;
+    margin-top: 20px;
+}
+
+/* Modal d'ajout d'adresse */
+.fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.7);
+    /* Fond semi-transparent */
+    z-index: 50;
+    /* Pour s'assurer que le modal est au-dessus du reste */
+}
+
+.bg-white {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    width: 100%;
+    margin: 40%;
+    /* Pour que le modal ne touche pas les bords de l'écran sur les petits écrans */
+}
+
+.shadow-lg {
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.p-6 {
+    padding: 1.5rem;
+}
+
+.flex {
+    display: flex;
+    justify-content: space-between;
+}
+
+.inset-0 {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.bg-gray-900 {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+/* Formulaire d'ajout d'adresse */
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.flex {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Message Panier vide */
+.empty-cart {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #555;
+    margin-top: 50px;
+}
+
+/* Bouton de retour au menu */
+.home-buttons button {
+    background-color: #ff5722;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+}
+
+.home-buttons button:hover {
+    background-color: #e64a19;
+}

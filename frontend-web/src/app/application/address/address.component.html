@@ -1,0 +1,40 @@
+<div>
+    <h1>Ajouter une adresse</h1>
+    <form [formGroup]="addressForm" (ngSubmit)="onSubmit()">
+      <input formControlName="street" placeholder="Rue" />
+      <input formControlName="postalCode" placeholder="Code postal" />
+      <input formControlName="city" placeholder="Ville" />
+      <input formControlName="country" placeholder="Pays" />
+      <button type="submit">Ajouter</button>
+    </form>
+  
+    <h2>Changer le nom d'utilisateur</h2>
+    <form [formGroup]="usernameForm" (ngSubmit)="changeUsername()">
+      <input formControlName="username" placeholder="Nouveau nom d'utilisateur" />
+      <button type="submit">Modifier</button>
+    </form>
+  
+    <h2>Adresses existantes</h2>
+    <ul>
+      <li *ngFor="let address of address">
+        {{ address.street }}, {{ address.postalCode }} {{ address.city }}, {{ address.country }}
+        <button (click)="editAddress(address)">Modifier</button>
+        <button (click)="address.id !== undefined && deleteAddress(address.id)">Supprimer</button> <!-- Ajoutez le bouton de suppression ici -->
+  
+        <div *ngIf="isEditing && selectedAddressId === address.id">
+          <form [formGroup]="addressEditForm" (ngSubmit)="updateAddress()">
+            <input formControlName="street" placeholder="Rue" />
+            <input formControlName="postalCode" placeholder="Code postal" />
+            <input formControlName="city" placeholder="Ville" />
+            <input formControlName="country" placeholder="Pays" />
+            <button type="submit">Mettre à jour</button>
+          </form>
+        </div>
+      </li>
+    </ul>
+  
+    <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+  
+    <button (click)="goToHome()">Retour à l'accueil</button>
+  </div>
+  

@@ -1,0 +1,74 @@
+<!-- Affichage du message du panier -->
+<div *ngIf="cartMessage" class="cart-message">
+  {{ cartMessage }}
+</div>
+
+<!-- Conteneur principal avec filtre et items -->
+<div class="main-container">
+  <div class="content-wrapper">
+    <!-- Barre de filtre à gauche -->
+    <div class="filter-bar">
+      <button (click)="filterMenu('all')" class="btn btn-filter">Tout voir</button>
+      <button (click)="filterMenu('Entrée')" class="btn btn-filter">Entrées</button>
+      <button (click)="filterMenu('Résistance')" class="btn btn-filter">Plats</button>
+      <button (click)="filterMenu('Dessert')" class="btn btn-filter">Desserts</button>
+    </div>
+
+    <!-- Menu des items à droite -->
+    <div class="menu-container">
+      <div *ngFor="let item of filteredMenuItems" class="menu-item">
+        <img [src]="'http://localhost:8090' + item.imageUrl" alt="Image de {{ item.name }}" class="menu-item-image">
+        <div class="menu-item-details">
+          <h3>{{ item.name }}</h3>
+          <p>{{ item.description }}</p>
+          <p class="price">{{ item.price }} €</p>
+          <p class="category">Catégorie: {{ item.categoryName }}</p>
+          
+          <!-- Sélection de la quantité -->
+          <div class="quantity-selection">
+            <label for="quantity-{{ item.id }}">Quantité:</label>
+            <input id="quantity-{{ item.id }}" type="number" [(ngModel)]="quantities[item.id]" min="1" class="quantity-input" />
+          </div>
+          
+          <!-- Bouton pour ajouter au panier -->
+          <button (click)="addToCart(item)" class="btn btn-success">Ajouter au panier</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Barre de navigation -->
+  <div class="navbar">
+    <div class="navbar-logo">
+      <span>Menu du restaurant</span>
+    </div>
+    <div class="navbar-right">
+      <!-- Icône du panier -->
+      <div class="cart-icon">
+        <button routerLink="/cart" class="btn btn-primary cart-btn">
+          <span class="cart-count">{{ cartItemCount }}</span>
+          🛒 Panier
+        </button>
+      </div>
+  
+    <!-- Boutons pour connexion et enregistrement -->
+    <div class="auth-buttons" *ngIf="!isUserLoggedIn">
+      <button routerLink="/login" class="btn btn-primary">Se connecter</button>
+      <button routerLink="/register" class="btn btn-secondary">S'enregistrer</button>
+    </div>
+
+
+    <!-- Menu profil utilisateur connecté -->
+    <div class="user-menu" *ngIf="isUserLoggedIn">
+      <div class="profile-dropdown">
+        <img *ngIf="user?.photoUrl" [src]="'http://localhost:8090' + user.photoUrl" alt="ok" class="profile-pic">
+        <span *ngIf="!user?.photoUrl">{{ user?.username }}</span>
+        <div class="dropdown-content">
+          <a (click)="goToProfile()">Profil</a>
+          <a (click)="goToHistory()">Historique</a>
+          <a (click)="logout()">Déconnexion</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
